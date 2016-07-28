@@ -13,6 +13,13 @@
     (validate-same-currency m1 m2)
     (compare (:amount m1) (:amount m2))))
 
+(defn- validate-same-currency
+  [m1 m2]
+  (or (= (:currency m1) (:currency m2))
+      (throw
+       (ex-info "Currencies do not match."
+                {:m1 m1 :m2 m2}))))
+
 (def currencies {:usd (->Currency 100 "USD" "US Dollars")
                  :eur (->Currency 100 "EUR" "Euro")})
 
@@ -22,16 +29,10 @@
 ;; example of compareTo
 (.compareTo
  (map->Money {:amount 1200 :currency USD})
- (map->Money {:amount 1200 :currency EUR}))
+ (map->Money {:amount 1100 :currency USD}))
 
 
 ;;; functions for adding, comparing, multiplying, and other operations
-(defn- validate-same-currency
-  [m1 m2]
-  (or (= (:currency m1) (:currency m2))
-      (throw
-       (ex-info "Currencies do not match."
-                {:m1 m1 :m2 m2}))))
 
 (defn =$
   ([m1] true)
@@ -83,3 +84,6 @@
 
 ;; However, it's often useful to accept optional arguments in any order -> Map destructuring
 ;; Check apollo.clj for more examples
+
+
+(def zero-dollars (->Money 0 USD))
