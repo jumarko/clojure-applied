@@ -17,11 +17,11 @@
 
 ;; alternative defrecord - named type
 (defrecord Planet [name
-                   moons
-                   volume
-                   mass
-                   aphelion
-                   perihelion])
+                   moons                                    ;; number of satellites
+                   volume                                   ;; km^3
+                   mass                                     ;; mass in kg
+                   aphelion                                 ;; the largest distance from the Sun, in km
+                   perihelion])                             ;; the smallest distance from the Sun, in km
 
 ;; positional factory funciton
 (->Planet "Earth" 1 1.08321e12 5.97219e24 152098232 147098290)
